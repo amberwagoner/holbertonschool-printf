@@ -1,19 +1,19 @@
 ./ "This is the manpage of the _prtinf function
 .TH man_3_printf "2022-10-31" "V1.0" "_printf manpage"
- 
+
 .SH NAME
 _printf
- 
+
 .SH SYNOPSIS
 .B #include "main.h"
 .PP
 .B _printf(const char *
 .I format
 , ...);
- 
+
 .SH DESCRIPTION
 Prints an argument according to a format. Mimics the printf() function found in <stdio.h>.
- 
+
 .SH CONVERSION SPECIFIERS
 The conversion specifiers for
 .B _printf
@@ -26,11 +26,11 @@ a string is printed
 a decimal integer is printed
 .IP -i
 an integer is printed
- 
+
 .SH RETURN VALUE
 If the function executes succesfully,
 .B _printf
 returns the number of characters printed.
- 
+
 .SH AUTHOR
 Amber Wagoner
