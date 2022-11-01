@@ -24,6 +24,6 @@ typedef struct print_format
 {
 	char type;
 	int (*f)(va_list);
-} format;
+} print_format;
 
 #endif /* MAIN_H */
