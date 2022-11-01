@@ -34,7 +34,7 @@ int (*check(const char *format))(va_list)
 
 int _printf(const char *format, ...)
 {
-	unsigned int i = 0, count = 0;
+	unsigned int i, count = 0;
 	va_list ap;
 	int (*f)(va_list);
 
@@ -42,6 +42,7 @@ int _printf(const char *format, ...)
 		return (-1);
 
 	va_start(ap, format);
+	i = 0;
 	while (format[i])
 	{
 		for (i = 1; format[i] != '%' && format[i]; i++)
@@ -51,7 +52,6 @@ int _printf(const char *format, ...)
 		}
 		if (!format[i])
 			return (count);
-
 		f = check(&format[i + 1]);
 		if (f != NULL)
 		{
@@ -61,7 +61,6 @@ int _printf(const char *format, ...)
 		}
 		if (!format[i + 1])
 			return (-1);
-
 		_putchar(format[i]);
 		count++;
 

@@ -18,10 +18,15 @@ int _putchar(char c)
 */
 int print_c(va_list c)
 {
-	int a = va_arg(c, int);
+	unsigned int a = 0;
 
-	_putchar(a);
-	return (1);
+	if (!c)
+		return (0);
+
+	_putchar(va_arg(c, int));
+	a++;
+
+	return (a);
 }
 
 /**
@@ -35,13 +40,10 @@ int print_s(va_list s)
 	char *str = va_arg(s, char *);
 
 	if (str == NULL)
-	{
 		str = "(null)";
-	}
+
 	for (count = 0; str[count]; count++)
-	{
 		_putchar(str[count]);
-	}
 	return (count);
 }
 
