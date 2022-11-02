@@ -14,7 +14,7 @@ int _putchar(char c)
 /**
 * print_c - function
 * @c: char
-* Return: 1
+* Return: number of chars printed
 */
 int print_c(va_list c)
 {
@@ -23,7 +23,7 @@ int print_c(va_list c)
 	if (!c)
 		return (0);
 
-	_putchar(va_arg(c, int));
+	_putchar((char)va_arg(c, int));
 	a++;
 
 	return (a);
@@ -32,11 +32,11 @@ int print_c(va_list c)
 /**
 * print_s - function
 * @s: string
-* Return: number of characters
+* Return: length of string
 */
 int print_s(va_list s)
 {
-	int count;
+	unsigned int count;
 	char *str = va_arg(s, char *);
 
 	if (str == NULL)
@@ -48,79 +48,46 @@ int print_s(va_list s)
 }
 
 /**
-* print_i - function
-* @i: integer
-* Description: prints an integer
-* Return: number chars and digits
-*/
-int print_i(va_list i)
-{
-	int t[10];
-	int var1, op1, f, sum, count;
+ * print_di - writes the integer di to stdout
+ * @di: The integer to print out
+ * Return: integer length count on success.
+ * On error, -1 is returned, and errno is set appropriately.
+ */
 
-	f = va_arg(i, int);
-	count = 0;
-	op1 = 1000000000;
-	t[0] = f / op1;
-	for (var1 = 1; var1 < 10; var1++)
+int print_di(va_list di)
+{
+	unsigned int count = 0, i = 0;
+	int val = va_arg(di, int), divider = 1;
+	char intmin[11] = {"-2147483648"};
+
+	if (val == INT_MIN)
 	{
-		op1 /= 10;
-		t[var1] = (f / op1) % 10;
-	}
-	if (f < 0)
-	{
-		_putchar('-');
-		count++;
-		for (var1 = 0; var1 < 10; var1++)
-			t[var1] *= -1;
-	}
-	for (var1 = 0, sum = 0; var1 < 10; var1++)
-	{
-		sum += t[var1];
-		if (sum != 0 || var1 == 9)
+		for (i = 0; i <= 10; i++)
 		{
-			_putchar('0' + t[var1]);
+			_putchar(intmin[i]);
 			count++;
 		}
+		return (count);
 	}
-	return (count);
-}
-
-/**
-* print_d - Function
-* @d: Integer
-* Description: Prints an Decimal
-* Return: Number Chars and Cigits
-*/
-int print_d(va_list d)
-{
-	int t[10];
-	int var1, op1, f, sum, count;
-
-	f = va_arg(d, int);
-	count = 0;
-	op1 = 1000000000;
-	t[0] = f / op1;
-	for (var1 = 1; var1 < 10; var1++)
-	{
-		op1 /= 10;
-		t[var1] = (f / op1) % 10;
-	}
-	if (f < 0)
+	if (val < 0)
 	{
 		_putchar('-');
+		val = -val;
 		count++;
-		for (var1 = 0; var1 < 10; var1++)
-			t[var1] *= -1;
 	}
-	for (var1 = 0, sum = 0; var1 < 10; var1++)
+
+	while ((val / divider) >= 10)
 	{
-		sum += t[var1];
-		if (sum != 0 || var1 == 9)
-		{
-			_putchar('0' + t[var1]);
-			count++;
-		}
+		divider *= 10;
 	}
+
+	while (divider >= 1)
+	{
+		_putchar((val / divider) + '0');
+		val = val % divider;
+		divider /= 10;
+		count++;
+	}
+
 	return (count);
 }

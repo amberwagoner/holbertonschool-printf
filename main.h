@@ -6,23 +6,22 @@
 #include <stdarg.h>
 #include <unistd.h>
 #include <limits.h>
+#include <stdio.h>
 
 /* Functions */
 int _putchar(char c);
-int (*check(const char *format))(va_list);
 int _printf(const char *format, ...);
 int print_c(va_list c);
 int print_s(va_list s);
-int print_d(va_list d);
-int print_i(va_list i);
+int print_di(va_list di);
 
 /**
-* struct format - printf type with print function, contains va_list
+* struct printformat - printf type with print function, contains va_list
 * @type: print type
 * @f: associated function
 */
 
-typedef struct format
+typedef struct printformat
 {
 	char *type;
 	int (*f)(va_list);
