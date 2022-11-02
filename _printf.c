@@ -9,8 +9,7 @@
 int (*check(const char *format))(va_list)
 {
 	unsigned int i;
-
-	print_format p[] = {
+	print_format print_class[] = {
 		{"c", print_c},
 		{"s", print_s},
 		{"i", print_di},
@@ -18,12 +17,14 @@ int (*check(const char *format))(va_list)
 		{NULL, NULL}
 	};
 
-	for (i = 0; p[i].type != NULL; i++)
+	for (i = 0; print_class[i].type != NULL; i++)
 	{
-		if (*(p[i].type) == *format)
+		if (*(print_class[i].type) == *format)
+		{
 			break;
+		}
 	}
-	return (p[i].f);
+	return (print_class[i].f);
 }
 
 /**
@@ -36,7 +37,7 @@ int _printf(const char *format, ...)
 {
 	unsigned int i, count = 0;
 	va_list ap;
-	int (*f)(va_list);
+	int (*func)(va_list);
 
 	if (format == NULL)
 		return (-1);
@@ -45,17 +46,17 @@ int _printf(const char *format, ...)
 	i = 0;
 	while (format[i])
 	{
-		for (i = 1; format[i] != '%' && format[i]; i++)
+		for (i = i; format[i] != '%' && format[i]; i++)
 		{
 			_putchar(format[i]);
 			count++;
 		}
 		if (!format[i])
 			return (count);
-		f = check(&format[i + 1]);
-		if (f != NULL)
+		func = check(&format[i + 1]);
+		if (func != NULL)
 		{
-			count += f(ap);
+			count += func(ap);
 			i += 2;
 			continue;
 		}

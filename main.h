@@ -7,6 +7,8 @@
 #include <unistd.h>
 #include <limits.h>
 #include <stdio.h>
+#include <stddef.h>
+#include <string.h>
 
 /* Functions */
 int _putchar(char c);
